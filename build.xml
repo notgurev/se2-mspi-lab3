@@ -2,7 +2,7 @@
 
 <!-- MANIFEST.MF должен содержать информацию о версии и о запускаемом классе -->
 
-<project name="lab3">
+<project name="lab3" default="build">
     <!-- todo все переменные и константы, используемые в сценарии, должны быть вынесены в отдельный файл параметров -->
     <property file="build.properties"/>
 
@@ -19,7 +19,7 @@
 
     <!-- build - компиляция исходных кодов проекта и их упаковка в исполняемый jar-архив -->
     <!-- Компиляцию исходных кодов реализовать посредством вызова цели compile -->
-    <target name="build" depends="clean, compile">
+    <target name="build" depends="compile">
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/lab3.jar" basedir="build/classes" excludes="*Test.class">
             <fileset dir="build/jar">
@@ -33,7 +33,7 @@
 
     <!-- test - запуск junit-тестов проекта -->
     <!-- Перед запуском тестов необходимо осуществить сборку проекта (цель build) -->
-    <target name="test" depends="compile"> <!-- todo не уверен что от compile -->
+    <target name="test" depends="build">
         <junit>
             <classpath>
                 <pathelement location="build/classes"/>
