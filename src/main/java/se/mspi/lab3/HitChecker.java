@@ -3,25 +3,27 @@ package se.mspi.lab3;
 import static java.lang.Math.pow;
 
 public class HitChecker {
-    private static boolean doCheck(int x, float y, int R) {
+    public Shot shoot(float x, float y, float r) {
         // Выкидывать исключение при R < 0 ?
         // todo переписать под вариант
+        boolean result;
         if (x >= 0) {
             if (y >= 0) {
                 // Ничего
-                return false;
+                result = false;
             } else {
                 // Треугольник, над прямой y = x - R
-                return y > x - R;
+                result = y > x - r;
             }
         } else {
             if (y >= 0) {
                 // Четверть круга
-                return pow(x, 2) + pow(y, 2) <= pow(R, 2);
+                result = pow(x, 2) + pow(y, 2) <= pow(r, 2);
             } else {
                 // Прямоугольник
-                return x >= -R && y >= -((float) R) / 2;
+                result = x >= -r && y >= -((float) r) / 2;
             }
         }
+        return new Shot(x, y, r, result);
     }
 }

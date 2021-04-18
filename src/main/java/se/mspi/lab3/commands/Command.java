@@ -1,5 +1,7 @@
 package se.mspi.lab3.commands;
 
+import se.mspi.lab3.ShootingRangeSimulator;
+
 public abstract class Command {
     protected final String name;
     protected final String helpText;
@@ -9,10 +11,10 @@ public abstract class Command {
         this.helpText = helpText;
     }
 
-    public abstract void execute(String args);
+    public abstract void execute(String args, ShootingRangeSimulator shootingRangeSimulator);
 
     public String getFullHelpLine() {
-        return name + helpText;
+        return name + " " + helpText;
     }
 
     public String getName() {
