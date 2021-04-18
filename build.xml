@@ -51,6 +51,21 @@
     <!-- (используя задание replace/replaceregexp в файлах параметров) и упаковывает ее в jar-архив -->
     <!-- Для создания jar-архива использует цель build -->
     <target name="alt">
-
+        <copy todir="${src_old.dir}">
+            <fileset dir="${src.dir}"/>
+        </copy>
+        <replace dir="${src.dir}" token="Shot" value="Hit"/>
+        <replace dir="${src.dir}" token="Shooting" value="Hitting"/>
+        <replace dir="${src.dir}" token="shot" value="hit"/>
+        <move file="${alt.shot}" tofile="${alt.app.dir}/Hit.java"/>
+        <move file="${alt.shotHistory}" tofile="${alt.app.dir}/HitHistory.java"/>
+        <move file="${alt.shootingRangeSimulator}" tofile="${alt.app.dir}/HittingRangeSimulator.java"/>
+        <move file="${alt.shotCommand}" tofile="${alt.app.dir}/HitCommand.java"/>
+        <antcall target="build"/>
+        <delete dir="${src.dir}"/>
+        <copy todir="${src.dir}">
+            <fileset dir="${src_old.dir}"/>
+        </copy>
+        <delete dir="${src_old.dir}"/>
     </target>
 </project>
