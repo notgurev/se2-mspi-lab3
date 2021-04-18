@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- MANIFEST.MF должен содержать информацию о версии и о запускаемом классе -->
+
+<project name="lab3">
+    <!-- todo все переменные и константы, используемые в сценарии, должны быть вынесены в отдельный файл параметров -->
+    <property file="build.properties"/>
+
+    <!-- clean - удаление скомпилированных классов проекта и всех временных файлов (если они есть) -->
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <!-- compile - компиляция исходных кодов проекта -->
+    <target name="compile" depends="clean">
+        <mkdir dir="build/classes"/>
+        <javac target="1.8" srcdir="src" destdir="build/classes" encoding="utf-8"/>
+    </target>
+
+    <!-- build - компиляция исходных кодов проекта и их упаковка в исполняемый jar-архив -->
+    <!-- Компиляцию исходных кодов реализовать посредством вызова цели compile -->
+    <target name="build" depends="clean, compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/lab3.jar" basedir="build/classes">
+            <fileset dir="build/jar">
+                <include name="**/*.class"/>
+            </fileset>
+            <manifest>
+                <attribute name="Main-Class" value="se.mspi.lab3.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- test - запуск junit-тестов проекта -->
+    <!-- Перед запуском тестов необходимо осуществить сборку проекта (цель build) -->
+    <target name="test" depends="compile"> <!-- todo не уверен что от compile -->
+
+    </target>
+
+    <!-- scp - перемещение собранного проекта по scp на выбранный сервер по завершению сборки -->
+    <!-- Предварительно необходимо выполнить сборку проекта (цель build) -->
+    <target name="scp" depends="build">
+
+    </target>
+
+    <!-- alt - создаёт альтернативную версию программы с измененными именами переменных и классов -->
+    <!-- (используя задание replace/replaceregexp в файлах параметров) и упаковывает ее в jar-архив -->
+    <!-- Для создания jar-архива использует цель build -->
+    <target name="alt">
+
+    </target>
+</project>
