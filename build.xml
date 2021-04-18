@@ -3,30 +3,30 @@
 <!-- MANIFEST.MF должен содержать информацию о версии и о запускаемом классе -->
 
 <project name="lab3" default="build">
-    <!-- todo все переменные и константы, используемые в сценарии, должны быть вынесены в отдельный файл параметров -->
     <property file="build.properties"/>
 
     <!-- clean - удаление скомпилированных классов проекта и всех временных файлов (если они есть) -->
     <target name="clean">
-        <delete dir="build"/>
+        <delete dir="${build.dir}"/>
     </target>
 
     <!-- compile - компиляция исходных кодов проекта -->
     <target name="compile" depends="clean">
-        <mkdir dir="build/classes"/>
-        <javac target="1.8" srcdir="src" destdir="build/classes" encoding="utf-8"/>
+        <mkdir dir="${classes.dir}"/>
+        <javac target="1.8" srcdir="${src.dir}" destdir="${classes.dir}" encoding="utf-8"/>
     </target>
 
     <!-- build - компиляция исходных кодов проекта и их упаковка в исполняемый jar-архив -->
     <!-- Компиляцию исходных кодов реализовать посредством вызова цели compile -->
     <target name="build" depends="compile">
-        <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/lab3.jar" basedir="build/classes" excludes="*Test.class">
-            <fileset dir="build/jar">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${project.name}.jar" basedir="${classes.dir}" excludes="*Test.class">
+            <fileset dir="${jar.dir}">
                 <include name="**/*.class"/>
             </fileset>
             <manifest>
-                <attribute name="Main-Class" value="se.mspi.lab3.Main"/>
+                <attribute name="Version" value="${version}"/>
+                <attribute name="Main-Class" value="${main.class}"/>
             </manifest>
         </jar>
     </target>
@@ -36,9 +36,9 @@
     <target name="test" depends="build">
         <junit>
             <classpath>
-                <pathelement location="build/classes"/>
+                <pathelement location="${classes.dir}"/>
             </classpath>
-            <test name="se.mspi.lab3.HitCheckerTest"/>
+            <test name="se.mspi.${project.name}.HitCheckerTest"/>
         </junit>
     </target>
 
