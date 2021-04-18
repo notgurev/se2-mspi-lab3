@@ -4,24 +4,23 @@ import static java.lang.Math.pow;
 
 public class HitChecker {
     public Shot shoot(float x, float y, float r) {
-        // Выкидывать исключение при R < 0 ?
-        // todo переписать под вариант
+        if (r < 0) throw new IllegalArgumentException("Радиус не может быть меньше 0");
         boolean result;
         if (x >= 0) {
             if (y >= 0) {
-                // Ничего
-                result = false;
+                // Прямоугольник
+                result = x <= r && y <= r / 2;
             } else {
-                // Треугольник, над прямой y = x - R
-                result = y > x - r;
+                // Четверть круга
+                result = pow(x, 2) + pow(y, 2) <= pow(r, 2);
             }
         } else {
             if (y >= 0) {
-                // Четверть круга
-                result = pow(x, 2) + pow(y, 2) <= pow(r, 2);
+                // Треугольник
+                result = y < x + r / 2;
             } else {
-                // Прямоугольник
-                result = x >= -r && y >= -((float) r) / 2;
+                // Ничего
+                result = false;
             }
         }
         return new Shot(x, y, r, result);
