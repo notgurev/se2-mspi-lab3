@@ -21,7 +21,7 @@
     <!-- Компиляцию исходных кодов реализовать посредством вызова цели compile -->
     <target name="build" depends="clean, compile">
         <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/lab3.jar" basedir="build/classes">
+        <jar destfile="build/jar/lab3.jar" basedir="build/classes" excludes="*Test.class">
             <fileset dir="build/jar">
                 <include name="**/*.class"/>
             </fileset>
@@ -34,13 +34,17 @@
     <!-- test - запуск junit-тестов проекта -->
     <!-- Перед запуском тестов необходимо осуществить сборку проекта (цель build) -->
     <target name="test" depends="compile"> <!-- todo не уверен что от compile -->
-
+        <junit>
+            <classpath>
+                <pathelement location="build/classes"/>
+            </classpath>
+            <test name="se.mspi.lab3.HitCheckerTest"/>
+        </junit>
     </target>
 
     <!-- scp - перемещение собранного проекта по scp на выбранный сервер по завершению сборки -->
     <!-- Предварительно необходимо выполнить сборку проекта (цель build) -->
     <target name="scp" depends="build">
-
     </target>
 
     <!-- alt - создаёт альтернативную версию программы с измененными именами переменных и классов -->
