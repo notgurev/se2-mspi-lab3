@@ -6,6 +6,7 @@
     <property file="build.properties"/>
     <property environment="env"/>
 
+
     <!-- clean - удаление скомпилированных классов проекта и всех временных файлов (если они есть) -->
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -35,11 +36,11 @@
     <!-- test - запуск junit-тестов проекта -->
     <!-- Перед запуском тестов необходимо осуществить сборку проекта (цель build) -->
     <target name="test" depends="build">
-        <junit>
+        <junit printsummary="on">
             <classpath>
                 <pathelement location="${classes.dir}"/>
             </classpath>
-            <test name="se.mspi.${project.name}.HitCheckerTest"/>
+            <test name="${test.class}"/>
         </junit>
     </target>
 
