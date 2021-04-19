@@ -4,6 +4,7 @@
 
 <project name="lab3" default="build">
     <property file="build.properties"/>
+    <property environment="env"/>
 
     <!-- clean - удаление скомпилированных классов проекта и всех временных файлов (если они есть) -->
     <target name="clean">
@@ -45,10 +46,9 @@
     <!-- scp - перемещение собранного проекта по scp на выбранный сервер по завершению сборки -->
     <!-- Предварительно необходимо выполнить сборку проекта (цель build) -->
     <target name="scp" depends="build">
-        <!--библио не видит, проверить работоспособность не могу, но по идее должно быть как-то так-->
         <scp file="${jar.dir}/${project.name}.jar"
-             todir="${scp.user}@${scp.host}:/mspi"
-             password="password" port="${scp.port}"/>
+             todir="${env.SCP_USER}@${scp.host}:/home/${env.SCP_USER}/"
+             port="${scp.port}" password="${env.SCP_PASSWORD}"/>
     </target>
 
     <!-- alt - создаёт альтернативную версию программы с измененными именами переменных и классов -->
