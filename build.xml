@@ -15,7 +15,7 @@
     <!-- compile - компиляция исходных кодов проекта -->
     <target name="compile" depends="clean">
         <mkdir dir="${classes.dir}"/>
-        <javac target="1.8" srcdir="${src.dir}" destdir="${classes.dir}" encoding="utf-8"/>
+        <javac target="1.8" source="1.8" srcdir="${src.dir}" destdir="${classes.dir}" encoding="utf-8"/>
     </target>
 
     <!-- build - компиляция исходных кодов проекта и их упаковка в исполняемый jar-архив -->

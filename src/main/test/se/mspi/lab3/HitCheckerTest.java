@@ -1,7 +1,7 @@
 package se.mspi.lab3;
 
-import org.junit.*;
-import org.junit.rules.ExpectedException;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,13 +10,13 @@ public class HitCheckerTest {
     private HitChecker hitChecker;
     private final int r = 10;
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    @Before
+    public void init() {
+        hitChecker = new HitChecker();
+    }
 
-    @Test
-    public void whenNegativeRadiusTest(){
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Радиус не может быть меньше 0");
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionOnNegativeRadius() {
         hitChecker.shoot(69, 42, -1);
     }
 
@@ -24,8 +24,8 @@ public class HitCheckerTest {
     public void firstQuarterTest(){
         for (int y = 0; y <= r; y++){
             for (int x = 0; x <= r; x++){
-                assertEquals(hitChecker.shoot(x, y, r).isSuccessful(),
-                        y <= r/2 && x <= r); // проверка по x ни на что не влияет, но и не замедляет код, просто для наглядности
+                // проверка по x ни на что не влияет, но и не замедляет код, просто для наглядности
+                assertEquals(hitChecker.shoot(x, y, r).isSuccessful(),y <= r/2 && x <= r);
             }
         }
     }
@@ -34,8 +34,7 @@ public class HitCheckerTest {
     public void secondQuarterTest(){
         for (int y = 0; y < r; y++){
             for (int x = 0; x >= -r; x--){
-                assertEquals(hitChecker.shoot(x, y, r).isSuccessful(),
-                        y <= x + r/2);
+                assertEquals(hitChecker.shoot(x, y, r).isSuccessful(), y <= x + r/2);
             }
         }
     }

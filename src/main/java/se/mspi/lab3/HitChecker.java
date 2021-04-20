@@ -17,7 +17,7 @@ public class HitChecker {
         } else {
             if (y >= 0) {
                 // Треугольник
-                result = y < x + r / 2;
+                result = y <= x + r / 2;
             } else {
                 // Ничего
                 result = x == 0 && y <= -r;
