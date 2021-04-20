@@ -20,7 +20,7 @@ public class HitChecker {
                 result = y < x + r / 2;
             } else {
                 // Ничего
-                result = false;
+                result = x == 0 && y <= -r;
             }
         }
         return new Shot(x, y, r, result);
