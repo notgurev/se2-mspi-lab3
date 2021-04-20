@@ -10,7 +10,7 @@ public class HistoryCommand extends Command {
 
     @Override
     public void execute(String args, ShootingRangeSimulator shootingRangeSimulator) {
-        System.out.println("История выстрелов: ");
+        System.out.println("Все выстрелы: ");
         int index = 1;
         for (Shot shot : shootingRangeSimulator.getShotHistory().getHistory()) {
             System.out.println((index++) + ". " + shot.fancyResult());

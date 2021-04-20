@@ -52,13 +52,22 @@
              port="${scp.port}" password="${env.SCP_PASSWORD}"/>
     </target>
 
+    <scriptdef name="propertyreset" language="javascript">
+        <attribute name="name"/>
+        <attribute name="value"/>
+        project.setProperty(attributes.get("name"), attributes.get("value"));
+    </scriptdef>
+
     <!-- alt - создаёт альтернативную версию программы с измененными именами переменных и классов -->
     <!-- (используя задание replace/replaceregexp в файлах параметров) и упаковывает ее в jar-архив -->
     <!-- Для создания jar-архива использует цель build -->
     <target name="alt">
-        <copy todir="${src_old.dir}">
+        <copy todir="${src_new.dir}">
             <fileset dir="${src.dir}"/>
         </copy>
+        <property name="src_old_path.dir" value="${src.dir}"/>
+        <propertyreset name="src.dir" value="${src_new.dir}"/>
+
         <replace dir="${src.dir}" token="Shot" value="Hit"/>
         <replace dir="${src.dir}" token="Shooting" value="Hitting"/>
         <replace dir="${src.dir}" token="shot" value="hit"/>
@@ -66,11 +75,10 @@
         <move file="${alt.shotHistory}" tofile="${alt.app.dir}/HitHistory.java"/>
         <move file="${alt.shootingRangeSimulator}" tofile="${alt.app.dir}/HittingRangeSimulator.java"/>
         <move file="${alt.shotCommand}" tofile="${alt.app.dir}/HitCommand.java"/>
+
         <antcall target="build"/>
         <delete dir="${src.dir}"/>
-        <copy todir="${src.dir}">
-            <fileset dir="${src_old.dir}"/>
-        </copy>
-        <delete dir="${src_old.dir}"/>
+
+        <propertyreset name="src.dir" value="${src_old_path.dir}"/>
     </target>
 </project>
