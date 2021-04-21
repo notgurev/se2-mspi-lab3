@@ -24,8 +24,7 @@ public class HitCheckerTest {
     public void firstQuarterTest(){
         for (int y = 0; y <= r; y++){
             for (int x = 0; x <= r; x++){
-                // проверка по x ни на что не влияет, но и не замедляет код, просто для наглядности
-                assertEquals(hitChecker.shoot(x, y, r).isSuccessful(),y <= r/2 && x <= r);
+                assertEquals(hitChecker.shoot(x, y, r).isSuccessful(),y <= r/2);
             }
         }
     }
